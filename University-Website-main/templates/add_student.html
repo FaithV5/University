@@ -1,0 +1,58 @@
+<!-- templates/add_student.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h3>{% if student %}Edit Student{% else %}Add Student{% endif %}</h3>
+<form method="post">
+    <div class="mb-3">
+        <label>Student ID</label>
+        <input name="student_id" class="form-control" required pattern="\d{2}-\d{5}" title="(25-12345)" value="{{ student.student_id if student }}">
+    </div>
+    <div class="mb-3">
+        <label>Name</label>
+        <input name="name" class="form-control" required value="{{ student.name if student }}">
+    </div>
+    <div class="mb-3">
+        <label>Department</label>
+        <select name="dept_id" class="form-select">
+        {% for d in departments %}
+            <option value="{{ d.id }}" {% if student and student.dept_id==d.id %}selected{% endif %}>{{ d.code }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Program</label>
+        <select name="program_id" class="form-select">
+        <option value="">-- none --</option>
+        {% for p in programs %}
+            <option value="{{ p.id }}" {% if student and student.program_id==p.id %}selected{% endif %}>{{ p.name|truncate(60) }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Course</label>
+        <select name="course_id" class="form-select">
+        <option value="">-- none --</option>
+        {% for c in courses %}
+            <option value="{{ c.id }}" {% if student and student.course_id==c.id %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Semester</label>
+        <select name="semester" class="form-select" required>
+            <option value="">-- none --</option>
+            <option value="FIRST" {% if student and student.semester == 'FIRST' %}selected{% endif %}>FIRST</option>
+            <option value="SECOND" {% if student and student.semester == 'SECOND' %}selected{% endif %}>SECOND</option>
+            <option value="SUMMER" {% if student and student.semester == 'SUMMER' %}selected{% endif %}>SUMMER</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Grade</label>
+        <input name="grade" class="form-control" value="{{ student.grade if student }}">
+    </div>
+    <div>
+        <button class="btn btn-primary">{% if student %}Update{% else %}Add{% endif %}</button>
+        <a class="btn btn-secondary" href="{{ url_for('students') }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

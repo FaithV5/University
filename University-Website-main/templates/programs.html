@@ -1,0 +1,38 @@
+<!-- templates/programs.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h3>Programs</h3>
+<form method="post" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <select name="dept_id" class="form-select" required>
+        {% for d in departments %}
+        <option value="{{ d.id }}">{{ d.code }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-6">
+        <input name="name" class="form-control" placeholder="Program name" required>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Add</button>
+    </div>
+    </form>
+
+    <table class="table">
+    <thead><tr><th>ID</th><th>Department</th><th>Name</th><th>Action</th></tr></thead>
+    <tbody>
+        {% for p in programs %}
+        <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.dept_code }}</td>
+        <td>{{ p.name }}</td>
+        <td>
+            <form method="post" action="{{ url_for('delete_program', id=p.id) }}" onsubmit="return confirm('Delete?');">
+            <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

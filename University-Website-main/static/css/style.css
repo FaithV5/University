@@ -1,0 +1,11 @@
+/* static/css/style.css */
+body {
+  background: #f4f6f9;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+.card img {
+  max-width: 100%;
+}
+.navbar-brand img {
+  margin-right: 8px;
+}

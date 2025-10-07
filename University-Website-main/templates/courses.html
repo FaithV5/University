@@ -1,0 +1,27 @@
+<!-- templates/courses.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h3>Courses</h3>
+<form method="post" class="row g-2 mb-3">
+    <div class="col-md-3"><input name="code" class="form-control" placeholder="Code (eg CS111)" required></div>
+    <div class="col-md-7"><input name="name" class="form-control" placeholder="Course name" required></div>
+    <div class="col-md-2"><button class="btn btn-primary w-100">Add</button></div>
+</form>
+
+<table class="table">
+    <thead><tr><th>Code</th><th>Name</th><th>Action</th></tr></thead>
+    <tbody>
+        {% for c in courses %}
+        <tr>
+        <td>{{ c.code }}</td>
+        <td>{{ c.name }}</td>
+        <td>
+            <form method="post" action="{{ url_for('delete_course', id=c.id) }}" onsubmit="return confirm('Delete?');">
+            <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
